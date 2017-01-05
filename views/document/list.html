@@ -1,0 +1,136 @@
+<section class="content-header">
+    <h1>
+        {{ name }}
+        <small>preview of items collection</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Collections</a></li>
+        <li class="active">{{ name }}</li>
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12" style="margin-bottom: 20px;">
+            <form role="form" ng-submit="changeQuery()">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" ng-model="pagination.query" placeholder="Search through documents" />
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+        <div class="col-sm-2">
+
+            <div ng-repeat="agg in aggregations | orderObjectBy: 'sort'">
+                <h4 class="subtitle mb5">{{ agg.title }}</h4>
+                <ul class="nav nav-sr">
+                    <li ng-repeat="bucket in agg.buckets">
+                    <div class="checkbox block" style="margin-top: 0; margin-bottom: 0;">
+                        <label><input type="checkbox" checklist-change="changeAggs(agg.name, bucket.key)" checklist-model="filters[agg.name]" checklist-value="bucket.key"> {{ bucket.key }} ({{ bucket.doc_count }})</label>
+                    </div>
+                    </li>
+                </ul>
+                <div class="mb20"></div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-10">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <span dropdown on-toggle="toggled(open)" class="col-md-3">
+                        Searching took <span ng-if="meta.search_time">{{ meta.search_time / 1000 }}</span> seconds |
+                        Sort by:
+                        <a href id="simple-dropdown" dropdown-toggle>
+                            {{ sorting.title | lowercase }}<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                            <li ng-repeat="choice in sortings | orderObjectBy: 'sort' : 'asc'">
+                            <a ui-sref="{sort: choice.name}" ui-sref-opts="{reload: false}">{{ choice.title | lowercase }}</a>
+                            </li>
+                        </ul>
+                    </span>
+
+                    <div class="mb20"></div>
+                    <div class="clearfix"></div>
+
+                    <span ng-repeat="(k, agg_types) in filters">
+                        <span ng-repeat="filter in agg_types" class="label label-default">{{ filter }}<span ng-click="removeFilter(k, filter)" style="cursor: pointer;" class="glyphicon glyphicon-remove"></span></span>
+                    </span>
+
+
+
+                    <div class="mb20"></div>
+
+                    <div class="box"> 
+                    <div class="box-body table-responsive">
+                        <table class="table mb30">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="n in metadata.keys">
+                                        {{ n }}
+                                    </th>
+                                    <th>Similar</th>
+                                    <th>Details</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(index, row) in rows">
+                                <td ng-repeat="(key, n) in metadata.rows[0]">
+                                    <span ng-if="n.type === 'image'"><img style="max-height: 100px;" ng-src="{{ row[key] }}" /></span>
+                                    <span ng-if="n.type === 'string' || n.type === 'integer' || n.type === 'float'">{{ row[key] }}</span>
+                                    <span ng-if="n.type === 'array'">{{ row[key].join(', ')}}{{  }}</span>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <a ng-click="showItem(index)" style="cursor: pointer;">View</a>
+                                </td>
+                                <td>
+                                    <a ng-click="editItem(index)" style="cursor: pointer;">Edit</a>
+                                </td>
+                                <td>
+                                    <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info" id="table2_info">All elements: {{ pagination.count }}</div>
+                        <pagination total-items="pagination.count" ng-model="pagination.page" class="pagination-md" ng-change="setPage(page)" boundary-links="true" rotate="true" items-per-page="pagination.limit" page="pagination.page" max-size="5"></pagination>
+                    </div>
+                    </div>
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="" data-toggle="tab" aria-expanded="true">Http request</a></li>
+                            <li><a href="" aria-expanded="false">Node.js</a></li>
+                            <li><a href="">Angular.js</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active">
+                                <code>GET /api/v1/{{ name }}</code><br />
+                                <span ng-repeat="(key, val) in explainQuery">
+                                    <code>{{ key }}={{val}}</code><br />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+

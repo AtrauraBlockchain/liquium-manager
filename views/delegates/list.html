@@ -1,0 +1,39 @@
+<section class="content-header">
+    <h1>
+        Delegates
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Delegates</a></li>
+        <li class="active"></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5 class="subtitle mb5">Delegates list</h5>
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in rows">
+                            <td>{{ row.display_name }}</td>
+                            <td>
+                              <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>

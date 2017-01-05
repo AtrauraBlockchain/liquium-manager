@@ -1,0 +1,50 @@
+<section class="content-header">
+    <h1>
+        Categories
+    </h1>
+    <ol class="breadcrumb">
+        <div class="input-group-btn" style="padding-right: 5px;">
+          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5 class="subtitle mb5">Categories list</h5>
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Id</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="idCategory in orgInfo.categories">
+                            <td>
+                                {{ idCategory.name }}
+                            </td>
+                            <td>
+                                {{ idCategory.idCategory }}
+                            </td>
+                            <td>
+                                <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+

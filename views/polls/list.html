@@ -1,0 +1,50 @@
+<section class="content-header">
+    <h1>
+        Polls
+    </h1>
+    <ol class="breadcrumb">
+        <div class="input-group-btn" style="padding-right: 5px;">
+          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5 class="subtitle mb5">Polls list</h5>
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Category</th>
+                                <th>Delegates end date</th>
+                                <th>End date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="idPoll in orgInfo.polls">
+                            <td>{{ idPoll.question }}</td>
+                            <td>{{ idPoll.idCategory }}</td>
+                            <td>{{ idPoll.closeDelegateTime }}</td>
+                            <td>{{ idPoll.closeTime }}</td>
+                            <td>
+                                <a href="" ui-sref="documents({ name: row.name })">View</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
