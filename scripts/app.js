@@ -30,8 +30,6 @@ angular.module('liquiumapi', [
   $urlRouterProvider.otherwise('/#');
   $locationProvider.html5Mode(false);
 
-  console.log('I am in config');
-
   $stateProvider
   .state('public', { abstract: true,
          template: '<ui-view/>',
