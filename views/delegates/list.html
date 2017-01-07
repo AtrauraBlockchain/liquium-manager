@@ -3,8 +3,11 @@
         Delegates
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Delegates</a></li>
-        <li class="active"></li>
+        <div class="input-group-btn" style="padding-right: 5px; float: left;">
+          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
     </ol>
 </section>
 
@@ -17,12 +20,16 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Id</th>
+                                <th>Owner</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in rows">
-                            <td>{{ row.display_name }}</td>
+                        <tr ng-repeat="idDelegate in orgInfo.delegates">
+                            <td>{{ idDelegate.name }}</td>
+                            <td>{{ idDelegate.idDelegate }}</td>
+                            <td>{{ idDelegate.owner }}</td>
                             <td>
                               <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
                             </td>

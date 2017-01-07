@@ -3,8 +3,8 @@
         Polls
     </h1>
     <ol class="breadcrumb">
-        <div class="input-group-btn" style="padding-right: 5px;">
-          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;">
+        <div class="input-group-btn" style="padding-right: 5px; float: left;">
+          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;" ng-click="showFormPoll()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
@@ -20,7 +20,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Question</th>
+                                <th>Title</th>
                                 <th>Category</th>
                                 <th>Delegates end date</th>
                                 <th>End date</th>
@@ -28,12 +28,12 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="idPoll in orgInfo.polls">
-                            <td>{{ idPoll.question }}</td>
+                            <td>{{ idPoll.title }}</td>
                             <td>{{ idPoll.idCategory }}</td>
                             <td>{{ idPoll.closeDelegateTime }}</td>
                             <td>{{ idPoll.closeTime }}</td>
                             <td>
-                                <a href="" ui-sref="documents({ name: row.name })">View</a>
+                                <a ng-click="showItem(idPoll)" style="cursor: pointer;">View</a>
                             </td>
                         </tr>
                         </tbody>

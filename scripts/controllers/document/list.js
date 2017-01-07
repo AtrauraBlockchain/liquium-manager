@@ -125,7 +125,7 @@ angular.module('liquiumapi')
 
   $scope.showItem = function (index) {
     var modalInstance = $modal.open({
-      templateUrl: 'views/modals/show-item.html',
+      templateUrl: 'views/modals/pollView.html',
       controller: 'ModalInstanceCtrl',
       size: 'lg',
       resolve: {

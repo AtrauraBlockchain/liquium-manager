@@ -1,0 +1,112 @@
+<div class="table-responsive">
+    <table class="table mb30">
+        <thead>
+            <!--<tr>
+                <th>
+                    <h3>Key</h3>
+                </th>
+                <th><h3>Value</h3></th>
+            </tr>-->
+        </thead>
+        <tbody>
+        <!--<tr ng-repeat="(key, val) in item">
+            <td>
+                {{ key }}
+            </td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ val }}
+            </td>
+        </tr>-->
+
+        <tr>
+            <td><b>Title:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.title }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Id:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.idPoll }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Category:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.idCategory }}
+            </td>
+        </tr>
+        <!--
+        <tr>
+            <td><b>Question:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.question }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Options:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.options }}
+            </td>
+        </tr>
+        -->
+
+        <tr>
+            <td><b>Close time for delegates:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.closeDelegateTime }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Poll close time:</b></td>
+            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
+                {{ item.closeTime }}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <table class="table mb30">
+        <caption style="text-align: center;"><h1>{{ item.question }}</h1></caption>
+        <thead>
+            <th>
+                <h3>Option</h3>
+            </th>
+
+            <th>
+                <h3>Votes</h3>
+            </th>
+
+            <!--<th>
+                <h3>Percentage</h3>
+            </th>-->
+
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="option in item.options">
+            <th>
+                {{ option.answer }}
+            </th>
+
+            <th>
+                {{ option.ballot }}
+            </th>
+
+            <!--
+            <th>
+                {{ parseInt(option.ballot, 16) }}
+            </th>
+            -->
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
