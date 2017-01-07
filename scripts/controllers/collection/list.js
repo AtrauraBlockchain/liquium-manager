@@ -26,6 +26,8 @@ angular.module('liquiumapi')
 
   $scope.submitText = 'Create';
   $scope.newCategoryName = '';
+  $scope.newDelegateName = '';
+  $scope.newDelegateAddr = '';
   $scope.waiting = false;
   $scope.animationsEnabled = true;
 
@@ -51,7 +53,7 @@ angular.module('liquiumapi')
 
 
   
-  $scope.addDelegate = function () {
+  $scope.addCategory = function () {
 
     $scope.waiting = true;
 
@@ -68,8 +70,28 @@ angular.module('liquiumapi')
         $scope.submitText = 'Create';
       })
 
-      console.log("ara soc aqui");
 
+    }
+
+
+  }
+
+  $scope.addDelegate = function () {
+
+    $scope.waiting = true;
+
+    $scope.submitText = 'Processing...';
+
+    if($scope.newDelegateName){
+      //$scope.$watch( "waiting" )
+
+      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr, 0, 
+      function(err, res) {
+        console.log(res);
+        console.log(err);
+        $scope.waiting = false;
+        $scope.submitText = 'Create';
+      })
 
 
     }
@@ -153,6 +175,19 @@ angular.module('liquiumapi')
   $scope.showFormPoll = function () {
     var modalInstance = $modal.open({
       templateUrl: 'views/modals/createPoll.html',
+      controller: 'ModalInstanceCtrl',
+      size: 'lg',
+      resolve: {
+        item: function() {
+          return $scope.submitText;
+        }
+      }
+    });
+  };
+
+  $scope.showFormDelegate = function () {
+    var modalInstance = $modal.open({
+      templateUrl: 'views/modals/addDelegate.html',
       controller: 'ModalInstanceCtrl',
       size: 'lg',
       resolve: {
