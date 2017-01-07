@@ -28,6 +28,8 @@ angular.module('liquiumapi')
   $scope.newCategoryName = '';
   $scope.newDelegateName = '';
   $scope.newDelegateAddr = '';
+  //$scope.delegateId = 0;
+  //$scope.delegateAddr = '';
   $scope.waiting = false;
   $scope.animationsEnabled = true;
 
@@ -95,6 +97,24 @@ angular.module('liquiumapi')
 
 
     }
+
+
+  }
+
+  $scope.removeDelegate = function (id, addr) {
+
+    liquiumContracts.removeDelegate(web3, $scope.organization, id, addr, 0, 
+      function(err) {
+        if(err == null){
+          $window.alert('Delegate succesfully deleted');
+        } else {
+          console.log(err);
+          $window.alert("Couldn't delete the delegate");
+        }
+
+
+      })
+
 
 
   }
