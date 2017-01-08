@@ -46,6 +46,13 @@ angular.module('liquiumapi')
 
   $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
 
+
+  $scope.toDate = function(dateNum) {
+
+    var result = Math.floor(datenum.getTime()/1000)
+
+  };
+
   $scope.addNewChoice = function() {
     var newItemNo = $scope.choices.length+1;
     $scope.choices.push({'id':'choice'+newItemNo});
@@ -55,7 +62,6 @@ angular.module('liquiumapi')
     var lastItem = $scope.choices.length-1;
     $scope.choices.splice(lastItem);
   };
-
 
 
   $scope.addCategory = function () {
@@ -128,10 +134,9 @@ angular.module('liquiumapi')
 
     $scope.submitText = 'Processing...';
 
-    console.log(this.pollQuestion);
     console.log(Math.floor(this.pollCloseTime.getTime()/1000));
     console.log(Math.floor(this.pollCloseDelegateTime.getTime()/1000));
-    
+
     if($scope.pollTitle){
 
     liquiumContracts.deploySingleChoice(
@@ -179,10 +184,10 @@ angular.module('liquiumapi')
 
   }
 
-  $scope.removeDelegate = function (id, addr) {
+  $scope.removeDelegate = function (id) {
 
-    liquiumContracts.removeDelegate(web3, $scope.organization, id, addr, 0,
-      function(err) {
+    liquiumContracts.removeDelegate(web3, $scope.organization, id,
+      function(err, res) {
         if(err == null){
           $window.alert('Delegate succesfully deleted');
         } else {
@@ -192,6 +197,24 @@ angular.module('liquiumapi')
 
 
       })
+
+
+
+  }
+
+  $scope.removeVoter = function (id) {
+
+    liquiumContracts.removeDelegate(web3, $scope.organization, id,
+      function(err, res) {
+        if(err == null){
+          $window.alert('Voter succesfully deleted');
+        } else {
+          console.log(err);
+          $window.alert("Couldn't delete the voter");
+        }
+
+
+    })
 
 
 

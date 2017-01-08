@@ -20,17 +20,31 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Id</th>
-                                
+                                <th>Balance</th>
+                                <th>Account</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in rows">
-                            <td>{{ row.display_name }}</td>
-                            <td>
-                              <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
-                            </td>
-                        </tr>
+                            <tr ng-repeat="idVoter in orgInfo.voters">
+                                <td>
+                                    {{ idVoter.name }}
+                                </td>
+                                <td>
+                                   {{ idVoter.idVoter }}
+                                </td>
+                                <td>
+                                   {{ idVoter.balance }}
+                                </td>
+                                <td>
+                                   {{ idVoter.owner }}
+                                </td>
+                                <td>
+                                    <a ng-click="removeVoter(idVoter.idVoter)" style="cursor: pointer;">Delete</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

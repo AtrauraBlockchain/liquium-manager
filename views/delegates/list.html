@@ -26,12 +26,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="idDelegate in orgInfo.delegates">
+                        <tr ng-repeat="idDelegate in orgInfo.delegates" ng-if="!idDelegate.deleted">
                             <td>{{ idDelegate.name }}</td>
                             <td>{{ idDelegate.idDelegate }}</td>
                             <td>{{ idDelegate.owner }}</td>
                             <td>
-                              <a ng-click="removeDelegate(idDelegate.idDelegate, idDelegate.owner)" style="cursor: pointer;">Delete</a>
+                              <a ng-click="removeDelegate(idDelegate.idDelegate)" style="cursor: pointer;">Delete</a>
                             </td>
                         </tr>
                         </tbody>
