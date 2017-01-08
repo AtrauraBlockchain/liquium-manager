@@ -42,7 +42,8 @@
     "ngQuickDate": "~1.2.10",
     "underscore": "~1.8.3",
     "ui.bootstrap": "0.13.3",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "liquium-contracts": "^0.1.2"
   },
   "private": true,
   "resolutions": {

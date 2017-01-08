@@ -3,21 +3,21 @@
 angular.module('liquiumapi')
 .controller('CollectionListController', function (APP, $rootScope, $scope, Restangular, $stateParams, $timeout, $http, $state, $location, Pagination, $modal, $log) {
 
-  $scope.organization = '0x30861e0fa53f5d9d3fea736439817047412d1aca';
+  $scope.organization = '0x75158f8fb94d4fbb9b9541b83ac2f8a8715ccde6';
 
   $scope.orgInfo = {};
 
   //var api = Restangular.all('collections');
   var updateCollections = function() {
-    liquiumContracts.getOrganizationInfo(web3, $scope.organization, 
+    liquiumContracts.getOrganizationInfo(web3, $scope.organization,
       function(err, res) {
-        console.log(res); 
+        console.log(res);
         $scope.$apply(function() {
           angular.copy(res, $scope.orgInfo);
 
           var info = $scope.orgInfo;
         });
-        
+
       })
   }
 
@@ -42,19 +42,19 @@ angular.module('liquiumapi')
   $scope.pollChoices = [];
 
   $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
-  
+
   $scope.addNewChoice = function() {
     var newItemNo = $scope.choices.length+1;
     $scope.choices.push({'id':'choice'+newItemNo});
   };
-    
+
   $scope.removeChoice = function() {
     var lastItem = $scope.choices.length-1;
     $scope.choices.splice(lastItem);
   };
 
 
-  
+
   $scope.addCategory = function () {
 
     $scope.waiting = true;
@@ -64,7 +64,7 @@ angular.module('liquiumapi')
     if($scope.newCategoryName){
       //$scope.$watch( "waiting" )
 
-      liquiumContracts.addCategory(web3, $scope.organization, this.newCategoryName, 0, 
+      liquiumContracts.addCategory(web3, $scope.organization, this.newCategoryName, 0,
       function(err, res) {
         console.log(res);
         console.log(err);
@@ -87,7 +87,7 @@ angular.module('liquiumapi')
     if($scope.newDelegateName){
       //$scope.$watch( "waiting" )
 
-      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr, 0, 
+      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr, 0,
       function(err, res) {
         console.log(res);
         console.log(err);
@@ -103,7 +103,7 @@ angular.module('liquiumapi')
 
   $scope.removeDelegate = function (id, addr) {
 
-    liquiumContracts.removeDelegate(web3, $scope.organization, id, addr, 0, 
+    liquiumContracts.removeDelegate(web3, $scope.organization, id, addr, 0,
       function(err) {
         if(err == null){
           $window.alert('Delegate succesfully deleted');
@@ -248,4 +248,3 @@ angular.module('liquiumapi').controller('ModalInstanceCtrl', function ($scope, $
   });
 
 });
-
