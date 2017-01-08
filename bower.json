@@ -41,7 +41,8 @@
     "textAngular": "~1.4.5",
     "ngQuickDate": "~1.2.10",
     "underscore": "~1.8.3",
-    "ui.bootstrap": "0.10.0"
+    "ui.bootstrap": "0.10.0",
+    "jquery": "^3.1.1"
   },
   "private": true,
   "resolutions": {
