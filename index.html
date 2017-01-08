@@ -24,7 +24,7 @@
 </head>
 
 <body ng-app="liquiumapi" class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
+    <div>
 
         <header class="main-header">
             <a ui-sref="polls" class="logo">
@@ -90,7 +90,7 @@
             </section>
         </aside>
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="position: absolute; min-width: 100%">
             <div class="contentpanel">
                 <div autoscroll="false" style="" class="" ui-view></div>
             </div>
@@ -98,7 +98,7 @@
         <div class="control-sidebar-bg"></div>
     </div>
 
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
