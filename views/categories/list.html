@@ -4,7 +4,7 @@
     </h1>
     <ol class="breadcrumb">
         <div class="input-group-btn" style="padding-right: 5px; float: left;">
-          <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;" ng-click="showFormCategory(idCategory)">
+            <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;" ng-click="showFormCategory(idCategory)">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
@@ -22,21 +22,21 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Id</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="idCategory in orgInfo.categories">
-                            <td>
-                                {{ idCategory.name }}
-                            </td>
-                            <td>
-                                {{ idCategory.idCategory }}
-                            </td>
-                            <td>
-                                <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
-                            </td>
-                        </tr>
+                            <tr ng-repeat="category in orgInfo.categories">
+                                <td>
+                                    {{ category.name }}
+                                </td>
+                                <td>
+                                    {{ category.idCategory }}
+                                </td>
+                                <td>
+                                    <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -47,4 +47,3 @@
 
 
 </section>
-

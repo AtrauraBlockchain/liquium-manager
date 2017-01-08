@@ -12,12 +12,8 @@ angular.module('liquiumapi')
     liquiumContracts.getOrganizationInfo(web3, $scope.organization,
       function(err, res) {
         console.log(res);
-        $scope.$apply(function() {
-          angular.copy(res, $scope.orgInfo);
-
-          var info = $scope.orgInfo;
-        });
-
+        $scope.orgInfo = res;
+        var info = res;
       })
   }
 
