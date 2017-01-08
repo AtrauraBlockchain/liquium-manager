@@ -18,7 +18,7 @@ angular.module('liquiumapi')
           var info = $scope.orgInfo;
         });
         
-      })
+      });
   }
 
 
@@ -30,8 +30,6 @@ angular.module('liquiumapi')
   $scope.newDelegateAddr = '';
   $scope.newVoterName = '';
   $scope.newVoterAddr = '';
-  //$scope.delegateId = 0;
-  //$scope.delegateAddr = '';
   $scope.waiting = false;
   $scope.animationsEnabled = true;
 
@@ -47,11 +45,7 @@ angular.module('liquiumapi')
   $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
 
 
-  $scope.toDate = function(dateNum) {
 
-    var result = Math.floor(datenum.getTime()/1000)
-
-  };
 
   $scope.addNewChoice = function() {
     var newItemNo = $scope.choices.length+1;
@@ -71,7 +65,6 @@ angular.module('liquiumapi')
     $scope.submitText = 'Processing...';
 
     if($scope.newCategoryName){
-      //$scope.$watch( "waiting" )
 
       liquiumContracts.addCategory(web3, $scope.organization, this.newCategoryName, 0,
       function(err, res) {
@@ -80,11 +73,26 @@ angular.module('liquiumapi')
         $scope.waiting = false;
         $window.alert('Category added succesfully');
         $scope.submitText = 'Create';
-      })
-
+      });
 
     }
 
+  };
+
+  $scope.deployOrg = function () {
+
+    $scope.waiting = true;
+
+    $scope.submitText = 'Processing...';
+
+    liquiumContracts.deployOrganization(web3, web3.eth.accounts[0], {},
+      function(err, organization) {
+        console.log("soc aqui dins");
+        console.log(err);
+        $scope.waiting = false;
+        $window.alert('New organization created with adress: ' + organization.adress);
+        $scope.submitText = 'Create';
+      });
 
   }
 
@@ -102,7 +110,7 @@ angular.module('liquiumapi')
 
       })
 
-  }
+  };
 
   $scope.addDelegate = function () {
 
@@ -120,22 +128,17 @@ angular.module('liquiumapi')
         $scope.waiting = false;
         $window.alert('Delegate added succesfully');
         $scope.submitText = 'Create';
-      })
+      });
 
 
     }
 
 
-  }
+  };
 
   $scope.addPoll = function () {
 
     $scope.waiting = true;
-
-    $scope.submitText = 'Processing...';
-
-    console.log(Math.floor(this.pollCloseTime.getTime()/1000));
-    console.log(Math.floor(this.pollCloseDelegateTime.getTime()/1000));
 
     if($scope.pollTitle){
 
@@ -157,9 +160,9 @@ angular.module('liquiumapi')
             console.log(res);
         }
       }
-    )
+    );
   }
-}
+  };
 
   $scope.addVoter = function () {
 
@@ -176,13 +179,13 @@ angular.module('liquiumapi')
         $scope.waiting = false;
         $window.alert('Voter added succesfully');
         $scope.submitText = 'Create';
-      })
+      });
 
 
     }
 
 
-  }
+  };
 
   $scope.removeDelegate = function (id) {
 
@@ -196,11 +199,8 @@ angular.module('liquiumapi')
         }
 
 
-      })
-
-
-
-  }
+      });
+  };
 
   $scope.removeVoter = function (id) {
 
@@ -214,30 +214,11 @@ angular.module('liquiumapi')
         }
 
 
-    })
-
-
-
-  }
-
-
-
-  /*$scope.submit = function () {
-    var body = $scope.collection
-    $scope.submitText = 'Processing...'
-    $http.post('/add-data', body, {}).then(function(res) {
-      $timeout(function() {
-        $scope.submitText = 'Submit'
-        $state.go('documents', {name: res.data.name}, {location: 'replace'})
-      }, 1000);
-
-      console.log(res);
-    }, function(err) {
-      $scope.submitText = 'Submit'
-      alert(err)
-      console.log(err);
     });
-  }*/
+
+
+
+  };
 
   $scope.showMapping = function (name, size) {
 
@@ -273,7 +254,6 @@ angular.module('liquiumapi')
       size: 'lg',
       resolve: {
         item: function() {
-          console.log(poll);
           return poll;
         }
       }
@@ -332,8 +312,19 @@ angular.module('liquiumapi')
     });
   };
 
-
-
+  $scope.showFormOrg = function () {
+    console.log("soc aqui");
+    var modalInstance = $modal.open({
+      templateUrl: 'views/modals/createOrg.html',
+      controller: 'ModalInstanceCtrl',
+      size: 'lg',
+      resolve: {
+        item: function() {
+          return $scope.submitText;
+        }
+      }
+    });
+  };
 });
 
 angular.module('liquiumapi').controller('ModalInstanceCtrl', function ($scope, $modalInstance, mapping) {

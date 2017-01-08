@@ -1,23 +1,8 @@
 <div class="table-responsive">
     <table class="table mb30">
         <thead>
-            <!--<tr>
-                <th>
-                    <h3>Key</h3>
-                </th>
-                <th><h3>Value</h3></th>
-            </tr>-->
         </thead>
         <tbody>
-        <!--<tr ng-repeat="(key, val) in item">
-            <td>
-                {{ key }}
-            </td>
-            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
-                {{ val }}
-            </td>
-        </tr>-->
-
         <tr>
             <td><b>Title:</b></td>
             <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
@@ -38,21 +23,6 @@
                 {{ item.idCategory }}
             </td>
         </tr>
-        <!--
-        <tr>
-            <td><b>Question:</b></td>
-            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
-                {{ item.question }}
-            </td>
-        </tr>
-
-        <tr>
-            <td><b>Options:</b></td>
-            <td ng-style="val.length > 1000 && {'white-space': 'pre'}" style="">
-                {{ item.options }}
-            </td>
-        </tr>
-        -->
 
         <tr>
             <td><b>Close time for delegates:</b></td>
@@ -82,10 +52,6 @@
                 <h3>Votes</h3>
             </th>
 
-            <!--<th>
-                <h3>Percentage</h3>
-            </th>-->
-
         </thead>
 
         <tbody>
@@ -97,12 +63,6 @@
             <th>
                 {{ option.result }}
             </th>
-
-            <!--
-            <th>
-                {{ parseInt(option.ballot, 16) }}
-            </th>
-            -->
 
         </tr>
         </tbody>

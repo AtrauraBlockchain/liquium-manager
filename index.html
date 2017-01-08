@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="Dashboard for managing items">
+    <meta name="description" content="Manager for Liquium">
     <meta name="author" content="Atraura Blockchain">
 
     <title>Liquium Manager</title>
@@ -41,7 +41,7 @@
 
                 <div class="input-group">
                     <div class="input-group input-group-lg" style="padding:1.5px 100px 0px;">
-                        <input type="text" class="form-control" ng-model="pagination.query" placeholder="Search your organization" />
+                        <input type="text" class="form-control" ng-model="organization" placeholder="Search your organization" />
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-primary">Go</button>
                         </div>
@@ -49,9 +49,9 @@
                     </div>
 
                     <div class="input-group-btn" style="padding-right: 5px;">
-                        <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px; border-color: black;">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </button>
+                        <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px; border-color: black;" ui-sref="createOrg">
+                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
 
@@ -120,7 +120,6 @@
     <script src="scripts/services.js"></script>
     <script src="scripts/crud.js"></script>
     <script src="scripts/controllers/collection/list.js"></script>
-    <script src="scripts/controllers/document/list.js"></script>
     <script src="bower_components/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
     <script src="bower_components/AdminLTE/plugins/fastclick/fastclick.js"></script>
     <script src="bower_components/AdminLTE/dist/js/app.min.js"></script>

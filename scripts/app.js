@@ -43,12 +43,6 @@ angular.module('liquiumapi', [
   });
 
   $stateProvider
-  .state('documents', {
-    url: '/documents/name/:name?page&limit&query&sort&aggs',
-    parent: 'abstract',
-    controller: 'DocumentListController',
-    templateUrl: 'views/document/list.html'
-  })
   .state('abstract', {
     abstract: true,
     template: '<ui-view autoscroll="false" />',
@@ -79,6 +73,12 @@ angular.module('liquiumapi', [
     parent: 'abstract',
     controller: 'CollectionListController',
     templateUrl: 'views/users/list.html'
+  })
+  .state('createOrg', {
+    url: 'views/modals/',
+    parent: 'abstract',
+    controller: 'CollectionListController',
+    templateUrl: 'views/modals/createOrg.html'
   })
 }).
   run(function($window, Restangular, $modal, $q) {
