@@ -3,7 +3,7 @@
 angular.module('liquiumapi')
 .controller('CollectionListController', function (APP, $rootScope, $scope, $window, Restangular, $stateParams, $timeout, $http, $state, $location, Pagination, $modal, $log) {
 
-  $scope.organization = '0x77e644413a19e9af16bea24f3c35c712a9c13611';
+  $scope.organization = '0x099ffb55229faa1087b260e132122d845e484d2e';
 
   $scope.orgInfo = {};
 
@@ -41,6 +41,7 @@ angular.module('liquiumapi')
   $scope.pollQuestion;
   $scope.pollCloseDelegateTime;
   $scope.pollCloseTime;
+  $scope.pollCategory;
   $scope.pollChoices = [];
 
   $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
@@ -106,7 +107,7 @@ angular.module('liquiumapi')
     if($scope.newDelegateName){
       //$scope.$watch( "waiting" )
 
-      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr,
+      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateAddr, this.newDelegateName,
       function(err, res) {
         console.log(res);
         console.log(err);
@@ -120,6 +121,40 @@ angular.module('liquiumapi')
 
 
   }
+
+  $scope.addPoll = function () {
+
+    $scope.waiting = true;
+
+    $scope.submitText = 'Processing...';
+
+    console.log(this.pollQuestion);
+    console.log(Math.floor(this.pollCloseTime.getTime()/1000));
+    console.log(Math.floor(this.pollCloseDelegateTime.getTime()/1000));
+    
+    if($scope.pollTitle){
+
+    liquiumContracts.deploySingleChoice(
+      web3,
+      $scope.organization,
+      this.pollTitle,
+      {
+        question: this.pollQuestion,
+        options: this.pollChoices,
+        closeDelegateTime: Math.floor(this.pollCloseDelegateTime.getTime()/1000),
+        closeTime:  Math.floor(this.pollCloseTime.getTime()/1000),
+        idCategory: this.pollCategory
+      },
+      function(err, res) {
+        if(err) {
+            console.log("Error: "+err);
+        } else {
+            console.log(res);
+        }
+      }
+    )
+  }
+}
 
   $scope.addVoter = function () {
 

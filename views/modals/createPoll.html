@@ -3,10 +3,15 @@
             <h3 class="box-title">Create new poll</h3>
           </div>
           <div class="box-body">
-            <form role="form" ng-submit="addDelegate()" ng-controller="CollectionListController">
+            <form role="form" ng-submit="addPoll()" ng-controller="CollectionListController">
               <div class="form-group">
                 <label>Poll title</label>
                 <input type="text" ng-model="pollTitle" class="form-control" placeholder="Poll title" required>
+              </div>
+
+              <div class="form-group">
+                <label>Poll category id</label>
+                <input type="text" ng-model="pollCategory" class="form-control" placeholder="Poll title" required>
               </div>
 
               <div class="form-group">
@@ -28,7 +33,7 @@
                 <label>Options:</label>
                 <fieldset data-ng-repeat="choice in choices" style="padding: 5px;">
 
-                  <input type="text" ng-model="pollChoices" name="" placeholder="Enter option" required>
+                  <input type="text" ng-model="pollChoices[$index]" name="" placeholder="Enter option" required>
                   <button class="btn btn-primary" ng-show="$last" ng-click="removeChoice()" style="background-color: red; border-color: black">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                   </button>
