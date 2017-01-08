@@ -1,19 +1,23 @@
 'use strict';
 
 angular.module('liquiumapi')
-.controller('CollectionListController', function (APP, $rootScope, $scope, Restangular, $stateParams, $timeout, $http, $state, $location, Pagination, $modal, $log) {
+.controller('CollectionListController', function (APP, $rootScope, $scope, $window, Restangular, $stateParams, $timeout, $http, $state, $location, Pagination, $modal, $log) {
 
-  $scope.organization = '0x75158f8fb94d4fbb9b9541b83ac2f8a8715ccde6';
+  $scope.organization = '0x77e644413a19e9af16bea24f3c35c712a9c13611';
 
   $scope.orgInfo = {};
 
   //var api = Restangular.all('collections');
   var updateCollections = function() {
-    liquiumContracts.getOrganizationInfo(web3, $scope.organization,
+    liquiumContracts.getOrganizationInfo(web3, $scope.organization, 
       function(err, res) {
-        console.log(res);
-        $scope.orgInfo = res;
-        var info = res;
+        console.log(res); 
+        $scope.$apply(function() {
+          angular.copy(res, $scope.orgInfo);
+
+          var info = $scope.orgInfo;
+        });
+        
       })
   }
 
@@ -24,6 +28,8 @@ angular.module('liquiumapi')
   $scope.newCategoryName = '';
   $scope.newDelegateName = '';
   $scope.newDelegateAddr = '';
+  $scope.newVoterName = '';
+  $scope.newVoterAddr = '';
   //$scope.delegateId = 0;
   //$scope.delegateAddr = '';
   $scope.waiting = false;
@@ -65,12 +71,29 @@ angular.module('liquiumapi')
         console.log(res);
         console.log(err);
         $scope.waiting = false;
+        $window.alert('Category added succesfully');
         $scope.submitText = 'Create';
       })
 
 
     }
 
+
+  }
+
+  $scope.removeCategory = function (id) {
+
+    liquiumContracts.removeCategory(web3, $scope.organization, id,
+      function(err) {
+        if(err == null){
+          $window.alert('Category succesfully deleted');
+        } else {
+          console.log(err);
+          $window.alert("Couldn't delete the category");
+        }
+
+
+      })
 
   }
 
@@ -83,11 +106,35 @@ angular.module('liquiumapi')
     if($scope.newDelegateName){
       //$scope.$watch( "waiting" )
 
-      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr, 0,
+      liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateName, this.newDelegateAddr,
       function(err, res) {
         console.log(res);
         console.log(err);
         $scope.waiting = false;
+        $window.alert('Delegate added succesfully');
+        $scope.submitText = 'Create';
+      })
+
+
+    }
+
+
+  }
+
+  $scope.addVoter = function () {
+
+    $scope.waiting = true;
+
+    $scope.submitText = 'Processing...';
+
+    if($scope.newVoterName){
+
+      liquiumContracts.addVoter(web3, $scope.organization, this.newVoterAddr, this.newVoterName, 1,
+      function(err, res) {
+        console.log(res);
+        console.log(err);
+        $scope.waiting = false;
+        $window.alert('Voter added succesfully');
         $scope.submitText = 'Create';
       })
 
@@ -117,7 +164,7 @@ angular.module('liquiumapi')
 
 
 
-  $scope.submit = function () {
+  /*$scope.submit = function () {
     var body = $scope.collection
     $scope.submitText = 'Processing...'
     $http.post('/add-data', body, {}).then(function(res) {
@@ -132,7 +179,7 @@ angular.module('liquiumapi')
       alert(err)
       console.log(err);
     });
-  }
+  }*/
 
   $scope.showMapping = function (name, size) {
 
@@ -178,6 +225,19 @@ angular.module('liquiumapi')
   $scope.showFormCategory = function () {
     var modalInstance = $modal.open({
       templateUrl: 'views/modals/addCategory.html',
+      controller: 'ModalInstanceCtrl',
+      size: 'lg',
+      resolve: {
+        item: function() {
+          return $scope.submitText;
+        }
+      }
+    });
+  };
+
+  $scope.showFormVoter = function () {
+    var modalInstance = $modal.open({
+      templateUrl: 'views/modals/addVoter.html',
       controller: 'ModalInstanceCtrl',
       size: 'lg',
       resolve: {

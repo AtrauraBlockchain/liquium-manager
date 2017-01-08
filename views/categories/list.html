@@ -4,7 +4,7 @@
     </h1>
     <ol class="breadcrumb">
         <div class="input-group-btn" style="padding-right: 5px; float: left;">
-            <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;" ng-click="showFormCategory(idCategory)">
+            <button type="submit" class="btn btn-primary" style="border-radius: 6px; padding: 11px 11px;" ng-click="showFormCategory()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>
@@ -26,15 +26,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="category in orgInfo.categories">
+                            <tr ng-repeat="category in orgInfo.categories" ng-if="!category.deleted">
                                 <td>
                                     {{ category.name }}
                                 </td>
                                 <td>
-                                    {{ category.idCategory }}
+                                   {{ category.idCategory }}
                                 </td>
                                 <td>
-                                    <a ng-click="removeItem(index)" style="cursor: pointer;">Delete</a>
+                                    <a ng-click="removeCategory(category.idCategory)" style="cursor: pointer;">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
