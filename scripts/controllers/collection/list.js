@@ -9,7 +9,6 @@ angular.module('liquiumapi')
   var updateCollections = function() {
     liquiumContracts.getOrganizationInfo(web3, $scope.organization, 
       function(err, res) {
-        console.log(res);
         $scope.$apply(function() {
 
           angular.copy(res, $scope.orgInfo);
@@ -28,7 +27,6 @@ angular.module('liquiumapi')
   $scope.newDelegateAddr = '';
   $scope.newVoterName = '';
   $scope.newVoterAddr = '';
-  $scope.waiting = false;
   $scope.animationsEnabled = true;
 
   $scope.collection = {};
@@ -58,7 +56,6 @@ angular.module('liquiumapi')
 
   $scope.addCategory = function () {
 
-    $scope.waiting = true;
 
     $scope.submitText = 'Processing...';
 
@@ -68,9 +65,9 @@ angular.module('liquiumapi')
       function(err, res) {
         if(err){
           console.log(err);
+          $window.alert("Couldn't create category");
         }
         
-        $scope.waiting = false;
         $window.alert('Category added succesfully');
         $scope.submitText = 'Create';
       });
@@ -81,17 +78,13 @@ angular.module('liquiumapi')
 
   $scope.deployOrg = function () {
 
-    $scope.waiting = true;
-
     $scope.submitText = 'Processing...';
 
     liquiumContracts.deployOrganization(web3, web3.eth.accounts[0], {},
       function(err, organization) {
-        console.log(organization);
         if(err){
           console.log(err);
         }
-        $scope.waiting = false;
         $window.alert('New organization created with adress: ' + organization.address);
         $scope.$apply(function() {
           $scope.submitText = 'Create';
@@ -118,7 +111,6 @@ angular.module('liquiumapi')
 
   $scope.addDelegate = function () {
 
-    $scope.waiting = true;
 
     $scope.submitText = 'Processing...';
 
@@ -128,8 +120,8 @@ angular.module('liquiumapi')
       function(err, res) {
         if(err){
           console.log(err);
+          $window.alert("Couldn't add delegate");
         }
-        $scope.waiting = false;
         $window.alert('Delegate added succesfully');
         $scope.submitText = 'Create';
       });
@@ -142,7 +134,6 @@ angular.module('liquiumapi')
 
   $scope.addPoll = function () {
 
-    $scope.waiting = true;
 
     if($scope.pollTitle){
 
@@ -160,6 +151,7 @@ angular.module('liquiumapi')
       function(err, res) {
         if(err) {
             console.log("Error: "+err);
+            $window.alert("Error creating poll");
         } else {
             $window.alert('Poll created succesfully');
         }
@@ -169,9 +161,6 @@ angular.module('liquiumapi')
   };
 
   $scope.addVoter = function () {
-
-    $scope.waiting = true;
-
     $scope.submitText = 'Processing...';
 
     if($scope.newVoterName){
@@ -180,9 +169,9 @@ angular.module('liquiumapi')
       function(err, res) {
         if(err) {
             console.log("Error: "+err);
+            $window.alert("Couldn't add voter");
         } else {
         
-        $scope.waiting = false;
         $window.alert('Voter added succesfully');
         $scope.submitText = 'Create';
         }
@@ -232,14 +221,17 @@ angular.module('liquiumapi')
     $scope.animationsEnabled = !$scope.animationsEnabled;
   };
 
-  $scope.showItem = function (poll) {
+  $scope.showItem = function (poll, category) {
     var modalInstance = $modal.open({
       templateUrl: 'views/modals/pollView.html',
       controller: 'ModalInstanceCtrl',
       size: 'lg',
       resolve: {
         item: function() {
-          return poll;
+          var retPoll = {};
+          angular.copy(poll, retPoll);
+          retPoll.idCategory = category;
+          return retPoll;
         }
       }
     });
@@ -316,41 +308,6 @@ angular.module('liquiumapi')
 
   $scope.item = item;
 
-  //$scope.mapping = mapping;
-  /*
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-    console.log("ok");
-    console.log($scope.mapping);
-  };
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-    console.log("cancel");
-    console.log($scope.mapping);
-  };
 
-  $scope.codemirrorLoaded = function(_editor){
-    _editor.focus();
-    _editor.refresh();
-    console.log("codemirrorLoaded");
-    console.log($scope.mapping);
-  };
-
-  $modalInstance.opened.then(function (selectedItem) {
-    $timeout(function() {
-      $scope.isRefreshed = true;
-      console.log("opened");
-      console.log($scope.mapping);
-    }, 10);
-  });*/
 
 });
-/*
-angular.module('liquiumapi', [])
-  .filter('parseDate', function() {
-  return function(value) {
-      return Date.parse(value);
-  };
-})
-
-;*/
