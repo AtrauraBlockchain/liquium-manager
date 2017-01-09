@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="Manager for Liquium">
-    <meta name="author" content="Atraura Blockchain">
+    <meta name="author" content="Atraura Blockchain, Ricard Hidalgo Jové">
 
     <title>Liquium Manager</title>
 
@@ -41,9 +41,9 @@
 
                 <div class="input-group">
                     <div class="input-group input-group-lg" style="padding:1.5px 100px 0px;">
-                        <input type="text" class="form-control" ng-model="organization" placeholder="Search your organization" />
+                        <input type="text" class="form-control" ng-model="org" placeholder="Place your organization address" />
                         <div class="input-group-btn">
-                            <button type="submit" class="btn btn-primary">Go</button>
+                            <button type="submit" class="btn btn-primary" ui-sref="polls">Go</button>
                         </div>
 
                     </div>
@@ -129,9 +129,11 @@
     <script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="bower_components/codemirror/mode/javascript/javascript.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
 
 
 
-</body>
+  </body>
 
 </html>

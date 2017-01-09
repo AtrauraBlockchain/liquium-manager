@@ -3,19 +3,17 @@
 angular.module('liquiumapi')
 .controller('CollectionListController', function (APP, $rootScope, $scope, $window, Restangular, $stateParams, $timeout, $http, $state, $location, Pagination, $modal, $log) {
 
-  $scope.organization = '0x099ffb55229faa1087b260e132122d845e484d2e';
+  $scope.organization = $rootScope.org;
 
   $scope.orgInfo = {};
-
-  //var api = Restangular.all('collections');
   var updateCollections = function() {
     liquiumContracts.getOrganizationInfo(web3, $scope.organization, 
       function(err, res) {
-        console.log(res); 
+        console.log(res);
         $scope.$apply(function() {
+
           angular.copy(res, $scope.orgInfo);
 
-          var info = $scope.orgInfo;
         });
         
       });
@@ -68,8 +66,10 @@ angular.module('liquiumapi')
 
       liquiumContracts.addCategory(web3, $scope.organization, this.newCategoryName, 0,
       function(err, res) {
-        console.log(res);
-        console.log(err);
+        if(err){
+          console.log(err);
+        }
+        
         $scope.waiting = false;
         $window.alert('Category added succesfully');
         $scope.submitText = 'Create';
@@ -87,11 +87,15 @@ angular.module('liquiumapi')
 
     liquiumContracts.deployOrganization(web3, web3.eth.accounts[0], {},
       function(err, organization) {
-        console.log("soc aqui dins");
-        console.log(err);
+        console.log(organization);
+        if(err){
+          console.log(err);
+        }
         $scope.waiting = false;
-        $window.alert('New organization created with adress: ' + organization.adress);
-        $scope.submitText = 'Create';
+        $window.alert('New organization created with adress: ' + organization.address);
+        $scope.$apply(function() {
+          $scope.submitText = 'Create';
+        });
       });
 
   }
@@ -100,7 +104,7 @@ angular.module('liquiumapi')
 
     liquiumContracts.removeCategory(web3, $scope.organization, id,
       function(err) {
-        if(err == null){
+        if(!err){
           $window.alert('Category succesfully deleted');
         } else {
           console.log(err);
@@ -119,12 +123,12 @@ angular.module('liquiumapi')
     $scope.submitText = 'Processing...';
 
     if($scope.newDelegateName){
-      //$scope.$watch( "waiting" )
 
       liquiumContracts.addDelegate(web3, $scope.organization, this.newDelegateAddr, this.newDelegateName,
       function(err, res) {
-        console.log(res);
-        console.log(err);
+        if(err){
+          console.log(err);
+        }
         $scope.waiting = false;
         $window.alert('Delegate added succesfully');
         $scope.submitText = 'Create';
@@ -157,7 +161,7 @@ angular.module('liquiumapi')
         if(err) {
             console.log("Error: "+err);
         } else {
-            console.log(res);
+            $window.alert('Poll created succesfully');
         }
       }
     );
@@ -174,11 +178,15 @@ angular.module('liquiumapi')
 
       liquiumContracts.addVoter(web3, $scope.organization, this.newVoterAddr, this.newVoterName, 1,
       function(err, res) {
-        console.log(res);
-        console.log(err);
+        if(err) {
+            console.log("Error: "+err);
+        } else {
+        
         $scope.waiting = false;
         $window.alert('Voter added succesfully');
         $scope.submitText = 'Create';
+        }
+
       });
 
 
@@ -204,7 +212,7 @@ angular.module('liquiumapi')
 
   $scope.removeVoter = function (id) {
 
-    liquiumContracts.removeDelegate(web3, $scope.organization, id,
+    liquiumContracts.removeVoter(web3, $scope.organization, id,
       function(err, res) {
         if(err == null){
           $window.alert('Voter succesfully deleted');
@@ -313,7 +321,6 @@ angular.module('liquiumapi')
   };
 
   $scope.showFormOrg = function () {
-    console.log("soc aqui");
     var modalInstance = $modal.open({
       templateUrl: 'views/modals/createOrg.html',
       controller: 'ModalInstanceCtrl',
@@ -335,20 +342,27 @@ angular.module('liquiumapi').controller('ModalInstanceCtrl', function ($scope, $
   $scope.mapping = mapping;
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
+    console.log("ok");
+    console.log($scope.mapping);
   };
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
-    console.log(tancant);
+    console.log("cancel");
+    console.log($scope.mapping);
   };
 
   $scope.codemirrorLoaded = function(_editor){
     _editor.focus();
     _editor.refresh();
+    console.log("codemirrorLoaded");
+    console.log($scope.mapping);
   };
 
   $modalInstance.opened.then(function (selectedItem) {
     $timeout(function() {
       $scope.isRefreshed = true;
+      console.log("opened");
+      console.log($scope.mapping);
     }, 10);
   });
 
