@@ -17,7 +17,8 @@ angular.module('liquiumapi', [
   'geolocation',
   'ngOrderObjectBy',
   'ui.codemirror',
-  'ui.bootstrap.datetimepicker'
+  'ui.bootstrap.datetimepicker',
+  'angularMoment'
 ])
 .constant('APP', {'baseUrl': '/api/v1', 'suffix': '' })
 

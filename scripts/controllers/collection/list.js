@@ -228,29 +228,6 @@ angular.module('liquiumapi')
 
   };
 
-  $scope.showMapping = function (name, size) {
-
-    var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'views/modals/mapping.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        mapping: function() {
-          var metadataApi = Restangular.one(name + '/metadata');
-          return metadataApi.get();
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-      $scope.testowy = "testowy";
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
   $scope.toggleAnimation = function () {
     $scope.animationsEnabled = !$scope.animationsEnabled;
   };
@@ -334,12 +311,13 @@ angular.module('liquiumapi')
   };
 });
 
-angular.module('liquiumapi').controller('ModalInstanceCtrl', function ($scope, $modalInstance, mapping) {
+angular.module('liquiumapi')
+  .controller('ModalInstanceCtrl', function ($scope, $modalInstance, item, $timeout) {
 
   $scope.item = item;
-  $scope.item2 = JSON.stringify(item, null, 4);
 
-  $scope.mapping = mapping;
+  //$scope.mapping = mapping;
+  /*
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
     console.log("ok");
@@ -364,6 +342,15 @@ angular.module('liquiumapi').controller('ModalInstanceCtrl', function ($scope, $
       console.log("opened");
       console.log($scope.mapping);
     }, 10);
-  });
+  });*/
 
 });
+/*
+angular.module('liquiumapi', [])
+  .filter('parseDate', function() {
+  return function(value) {
+      return Date.parse(value);
+  };
+})
+
+;*/

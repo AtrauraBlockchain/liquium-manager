@@ -30,8 +30,8 @@
                         <tr ng-repeat="idPoll in orgInfo.polls">
                             <td>{{ idPoll.title }}</td>
                             <td>{{ idPoll.idCategory }}</td>
-                            <td>{{ idPoll.closeDelegateTime }}</td>
-                            <td>{{ idPoll.closeTime }}</td>
+                            <td>{{ (idPoll.closeDelegateTime*1000) | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}</td>
+                            <td>{{ (idPoll.closeTime*1000) | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}</td>
                             <td>
                                 <a ng-click="showItem(idPoll)" style="cursor: pointer;">View</a>
                             </td>

@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="idVoter in orgInfo.voters">
+                            <tr ng-repeat="idVoter in orgInfo.voters" ng-if="!idVoter.balance == 0">
                                 <td>
                                     {{ idVoter.name }}
                                 </td>
